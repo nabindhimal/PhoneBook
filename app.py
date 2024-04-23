@@ -11,10 +11,10 @@ def load_contacts():
 
 
 def save_contacts():
-    existing_contacts = load_contacts()
-    existing_contacts.update(contacts)
+    # existing_contacts = load_contacts()
+    contacts.update(contacts)
     with open(CONTACT_FILE, "w") as file:
-        json.dump(existing_contacts, file)
+        json.dump(contacts, file)
 
 
 contacts = load_contacts()
@@ -23,9 +23,11 @@ contacts = load_contacts()
 def main():
     tasks = {1: 'Add Contact', 2: 'Delete Contact', 3: 'Find Contact', 4: 'Update Contact', 5: 'View Contact',
              6: 'Exit'}
-    print(tasks)
+
 
     while True:
+        print("\n")
+        print(tasks)
         choice = int(input('Choose an option: '))
 
         if choice == 1:
@@ -59,6 +61,7 @@ def delete_contact():
     email = input("Enter email: ")
     if email in contacts:
         del contacts[email]
+        save_contacts()
         print(f"Contact with {email} removed.")
     else:
         print("No contact with that email is available.")
